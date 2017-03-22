@@ -7,6 +7,6 @@
 + `python3 manage.py migrate`
 
 ## Работа с проектом локально
-+ запсустить сервер `python manage.py runserver 6340`
++ запустить сервер `python manage.py runserver 6340`
 + проект доступен в браузере [http://127.0.0.1:6340/](http://127.0.0.1:6340/)
 + выключить сервер – **control+C**
