@@ -4,9 +4,16 @@
 
 ## Развертывание на локальной машине
 + `git clone git@bitbucket.org:GarikNovel/unistack.git`
-+ `python3 manage.py migrate`
++ `cd unistack`
++ `pip install django`
++ `pip install djangorestframework`
++ `pip install markdown`
++ `pip install django-filter`
++ `python manage.py migrate`
 
 ## Работа с проектом локально
++ `git pull`
++ `python manage.py migrate`
 + запустить сервер `python manage.py runserver 6340`
 + проект доступен в браузере [http://127.0.0.1:6340/](http://127.0.0.1:6340/)
 + выключить сервер – **control+C**
