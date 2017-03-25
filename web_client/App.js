@@ -4,7 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBarIcon from './AppBarIcon';
 
 const App = () => (
-    <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+    <MuiThemeProvider>
         <AppBarIcon />
     </MuiThemeProvider>
 );
