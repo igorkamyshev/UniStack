@@ -1,16 +1,25 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import injectTapEventPlugin from "react-tap-event-plugin";
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBarIcon from './AppBarIcon';
 
-const App = () => (
-    <MuiThemeProvider>
-        <AppBarIcon />
-    </MuiThemeProvider>
-);
+import UniNavigationBar from './Components/UniNavigationBar'
 
+class App extends Component {
+    render() {
+        return (
+        <MuiThemeProvider>
+            <div>
+                <UniNavigationBar/>
+            </div>
+        </MuiThemeProvider>
+        )
+    }
+}
 
 function run() {
+    injectTapEventPlugin();
     ReactDOM.render(<App />, document.getElementById('app'));
 }
 
