@@ -29,6 +29,24 @@ class RegionAdmin(admin.ModelAdmin):
 admin.site.register(Country)
 admin.site.register(Region, RegionAdmin)
 
-admin.site.register(TrainingDirectionGroup)
-admin.site.register(TrainingDirection)
+
+# Напраления подготовки по ФГОС
+class TrainingDirectionInLine(admin.TabularInline):
+    model = TrainingDirection
+
+
+class TrainingDirectionGroupAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (
+            None,
+            {
+                'fields': [
+                    'name',
+                ]
+            }
+        ),
+    ]
+    inlines = [TrainingDirectionInLine]
+
+admin.site.register(TrainingDirectionGroup, TrainingDirectionGroupAdmin)
 

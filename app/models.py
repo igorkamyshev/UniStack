@@ -71,8 +71,8 @@ class TrainingDirectionGroup(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'группа направлений подготовки'
-        verbose_name_plural = 'группы направлений подготовки'
+        verbose_name = 'группа направлений подготовки ФГОС'
+        verbose_name_plural = 'группы направлений подготовки ФГОС'
 
 
 class TrainingDirection(models.Model):
@@ -88,5 +88,5 @@ class TrainingDirection(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'направление подготовки'
-        verbose_name_plural = 'направления подготовки'
+        verbose_name = 'направление подготовки ФГОС'
+        verbose_name_plural = 'направления подготовки ФГОС'
