@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from app.models import Exam, Assistant
+from app.models import Exam, Assistant, TrainingDirection, TrainingDirectionGroup
 
 
 class ExamSerializer(serializers.ModelSerializer):
@@ -20,4 +20,24 @@ class AssistantSerializer(serializers.ModelSerializer):
             'text',
             'title',
             'url',
+        ]
+
+
+class TrainingDirectionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TrainingDirection
+        fields = [
+            'name',
+            'url',
+            'code',
+            'description',
+            'intro'
+        ]
+
+
+class TrainingDirectionGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TrainingDirectionGroup
+        fields = [
+            'name'
         ]
