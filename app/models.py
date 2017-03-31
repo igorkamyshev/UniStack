@@ -120,3 +120,50 @@ class Specialty(models.Model):
     class Meta:
         verbose_name = 'специальность'
         verbose_name_plural = 'специальности'
+
+
+# ВУЗы
+class University(models.Model):
+    name = models.CharField(max_length=255)
+    abbr = models.CharField(max_length=127)
+    site = models.URLField()
+
+    city = models.ForeignKey(City, on_delete=models.PROTECT)
+
+    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='branches')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'ВУЗ'
+        verbose_name_plural = 'ВУЗы'
+
+
+class Subdivision(models.Model):
+    name = models.CharField(max_length=255)
+    abbr = models.CharField(max_length=127)
+    site = models.URLField()
+
+    university = models.ForeignKey(University, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'институт/факультет'
+        verbose_name_plural = 'институты/факультеты'
+
+
+class Department(models.Model):
+    name = models.CharField(max_length=255)
+    site = models.URLField()
+
+    subdivision = models.ForeignKey(Subdivision, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'кафедра'
+        verbose_name_plural = 'кафедры'
