@@ -64,6 +64,7 @@ class City(models.Model):
         verbose_name_plural = 'города'
 
 
+# Направления подготовки из ФГОС
 class TrainingDirectionGroup(models.Model):
     name = models.CharField('название', max_length=255)
 
@@ -90,3 +91,32 @@ class TrainingDirection(models.Model):
     class Meta:
         verbose_name = 'направление подготовки ФГОС'
         verbose_name_plural = 'направления подготовки ФГОС'
+
+
+# Специальности
+class SpecialtyGroup(models.Model):
+    name = models.CharField('название', max_length=255)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'группа специальностей'
+        verbose_name_plural = 'группы специальностей'
+
+
+class Specialty(models.Model):
+    name = models.CharField('название', max_length=255)
+    description = models.TextField('описание', null=True, blank=True)
+    intro = models.TextField('интро', null=True, blank=True)
+    salary = models.IntegerField('средняя зарплата', default=0)
+
+    group = models.ForeignKey(SpecialtyGroup, on_delete=models.CASCADE)
+    training_directions = models.ManyToManyField(TrainingDirection)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'специальность'
+        verbose_name_plural = 'специальности'
