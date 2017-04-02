@@ -1,9 +1,15 @@
 from app.models import TrainingDirectionGroup, TrainingDirection
+from app.models import Country, Region, City
 from django.core.exceptions import ObjectDoesNotExist
 
 from lxml.html import fromstring
 from lxml import *
 import requests
+
+import os
+
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
 
 class Parser:
@@ -11,8 +17,87 @@ class Parser:
         pass
 
 
+class GoogleSheetsParser(Parser):
+    def __get_credentials(self):
+        scope = ['https://spreadsheets.google.com/feeds']
+
+        credentials = ServiceAccountCredentials.from_json_keyfile_name(
+            'app/management/commands/credentials/uni-stack-8109d2248632.json',
+            scope)
+
+        return credentials
+
+    def get_worksheet(self, key):
+        credentials = self.__get_credentials()
+
+        gc = gspread.authorize(credentials)
+        worksheet = gc.open_by_key(key).sheet1
+
+        return worksheet
+
+
+class GoogleSheetsCitiesParser(GoogleSheetsParser):
+    country_count = 0
+    region_count = 0
+    city_count = 0
+
+    def parse(self):
+        worksheet = GoogleSheetsParser.get_worksheet(self, '1Mp9r7CNxVnKip-tLAFpbGp4K_MY2iUrbrBOQBcsKLVE')
+
+        i = 2
+        while True:
+            values_list = worksheet.row_values(i)
+            i += 1
+
+            if not values_list[0]:
+                break
+
+            try:
+                country = Country.objects.get(
+                    name=values_list[4]
+                )
+            except ObjectDoesNotExist:
+                country = Country(
+                    name=values_list[4]
+                )
+                self.country_count += 1
+                country.save()
+
+            try:
+                region = Region.objects.get(
+                    name=values_list[1]
+                )
+            except ObjectDoesNotExist:
+                region = Region(
+                    name=values_list[1],
+                    country=country
+                )
+                self.region_count += 1
+                region.save()
+
+            try:
+                city = City.objects.get(
+                    name=values_list[0]
+                )
+            except ObjectDoesNotExist:
+                city = City(
+                    name=values_list[0],
+                    lat=values_list[2],
+                    lon=values_list[3],
+                    region=region
+                )
+                self.city_count += 1
+                city.save()
+
+        return [
+            'New Countries: ' + str(self.country_count),
+            'New Regions: ' + str(self.region_count),
+            'New Cities: ' + str(self.city_count)
+        ]
+
+
 class FgosTrainingDirectionParser(Parser):
-    base_url = 'http://www.edu.ru/'
+    BASE_URL = 'http://www.edu.ru/'
 
     direction_count = 0
     group_count = 0
@@ -46,7 +131,7 @@ class FgosTrainingDirectionParser(Parser):
         return direction
 
     def __parse_group(self, relative_url, group):
-        request = requests.get(self.base_url + relative_url)
+        request = requests.get(self.BASE_URL + relative_url)
 
         dom = fromstring(request.text)
         table = dom.xpath('//table')[4]
@@ -75,7 +160,7 @@ class FgosTrainingDirectionParser(Parser):
         return direction_array
 
     def parse(self):
-        request = requests.get(self.base_url + '/abitur/act.6/index.php')
+        request = requests.get(self.BASE_URL + '/abitur/act.6/index.php')
 
         dom = fromstring(request.text)
         table = dom.xpath('//table')[4]

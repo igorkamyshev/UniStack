@@ -12,6 +12,7 @@
 + `pip install django-filter`
 + `pip install lxml`
 + `pip install requests`
++ `pip install gspread`
 + `python manage.py migrate`
 
 ## Работа с проектом локально
@@ -28,4 +29,6 @@
 > `python manage.py parse [source]`
 
 Доступные параметры для [source]
+
 1. `fgos` – **направления подготовки** по группам с сайта [Федеральный портал: Российское образование](http://www.edu.ru/abitur/act.6/index.php)
+2. `cities` – **города** по регионам и странам из таблицы [Cites for Migration](https://docs.google.com/spreadsheets/d/1Mp9r7CNxVnKip-tLAFpbGp4K_MY2iUrbrBOQBcsKLVE/edit?usp=sharing)

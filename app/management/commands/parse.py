@@ -7,7 +7,8 @@ from ._parsers import *
 class Command(BaseCommand):
     help = 'Загрузить данные из источника в базу данных'
     sources = {
-        'fgos': 'FgosTrainingDirectionParser'
+        'fgos':   'FgosTrainingDirectionParser',
+        'cities': 'GoogleSheetsCitiesParser'
     }
 
     def add_arguments(self, parser):

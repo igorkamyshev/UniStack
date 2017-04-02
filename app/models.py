@@ -25,6 +25,7 @@ class Assistant(models.Model):
         verbose_name_plural = 'благодарности'
 
 
+# География
 class Country(models.Model):
     name = models.CharField('название', max_length=255)
 
