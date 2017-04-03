@@ -25,6 +25,18 @@ class Assistant(models.Model):
         verbose_name_plural = 'благодарности'
 
 
+class SocialLink(models.Model):
+    name = models.CharField('название социальной сети', max_length=255)
+    ur = models.URLField
+
+    def __str__(self):
+        return self.url
+
+    class Meta:
+        verbose_name = 'сслыка на социальную сеть'
+        verbose_name_plural = 'ссылки на социальные сети'
+
+
 # География
 class Country(models.Model):
     name = models.CharField('название', max_length=255)
