@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from app.models import Exam, Assistant, TrainingDirection, TrainingDirectionGroup
+from app.models import *
 
 
 class ExamSerializer(serializers.ModelSerializer):
@@ -31,7 +31,8 @@ class TrainingDirectionSerializer(serializers.ModelSerializer):
             'url',
             'code',
             'description',
-            'intro'
+            'intro',
+            'group',
         ]
 
 
@@ -39,5 +40,33 @@ class TrainingDirectionGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = TrainingDirectionGroup
         fields = [
-            'name'
+            'name',
+        ]
+
+
+class CountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = [
+            'name',
+        ]
+
+
+class RegionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Region
+        fields = [
+            'name',
+            'country',
+        ]
+
+
+class CitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City
+        fields = [
+            'name',
+            'region',
+            'lat',
+            'lon',
         ]

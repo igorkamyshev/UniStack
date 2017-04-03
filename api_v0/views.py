@@ -25,3 +25,21 @@ class TrainingDirectionGroupViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = TrainingDirectionGroup.objects.all()
 
     serializer_class = TrainingDirectionGroupSerializer
+
+
+class CountryViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Country.objects.all()
+
+    serializer_class = CountrySerializer
+
+
+class RegionViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Region.objects.all()
+
+    serializer_class = RegionSerializer
+
+
+class CityViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = City.objects.all()
+
+    serializer_class = CitySerializer
