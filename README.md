@@ -6,19 +6,13 @@
 + `git clone git@bitbucket.org:GarikNovel/unistack.git`
 + `cd unistack`
 + `npm install`
-+ `pip install django`
-+ `pip install djangorestframework`
-+ `pip install markdown`
-+ `pip install django-filter`
-+ `pip install lxml`
-+ `pip install requests`
-+ `pip install gspread`
-+ `pip install django-admin-tools`
++ `pip install -r requirements.txt --upgrade`
 + `python manage.py migrate`
 
 ## Работа с проектом локально
 + `git pull`
 + `npm install`
++ `pip install -r requirements.txt --upgrade`
 + `python manage.py migrate`
 + запустить сервер `python manage.py runserver 6340`
 + проект доступен в браузере [http://127.0.0.1:6340/](http://127.0.0.1:6340/)
