@@ -107,7 +107,7 @@ class TrainingDirection(models.Model):
 
 
 # Специальности
-class SpecialtyGroup(models.Model):
+class SpecialityGroup(models.Model):
     name = models.CharField('название', max_length=255)
 
     def __str__(self):
@@ -118,13 +118,13 @@ class SpecialtyGroup(models.Model):
         verbose_name_plural = 'группы специальностей'
 
 
-class Specialty(models.Model):
+class Speciality(models.Model):
     name = models.CharField('название', max_length=255)
     description = models.TextField('описание', null=True, blank=True)
     intro = models.TextField('интро', null=True, blank=True)
     salary = models.IntegerField('средняя зарплата', default=0)
 
-    group = models.ForeignKey(SpecialtyGroup, on_delete=models.CASCADE)
+    group = models.ForeignKey(SpecialityGroup, on_delete=models.CASCADE)
     training_directions = models.ManyToManyField(TrainingDirection)
 
     def __str__(self):

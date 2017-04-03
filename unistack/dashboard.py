@@ -50,6 +50,8 @@ class CustomIndexDashboard(Dashboard):
                 models=(
                     'app.models.TrainingDirection',
                     'app.models.TrainingDirectionGroup',
+                    'app.models.Speciality',
+                    'app.models.SpecialityGroup',
                 ),
             )
         )
@@ -110,11 +112,11 @@ class CustomIndexDashboard(Dashboard):
         '''self.children.append(modules.RecentActions(_('Recent Actions'), 5))'''
 
         # append a feed module
-        self.children.append(modules.Feed(
+        '''self.children.append(modules.Feed(
             _('Latest Django News'),
             feed_url='http://www.djangoproject.com/rss/weblog/',
             limit=5
-        ))
+        ))'''
 
         # append another link list module for "support".
         '''self.children.append(modules.LinkList(

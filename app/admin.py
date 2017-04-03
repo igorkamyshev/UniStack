@@ -55,6 +55,27 @@ class TrainingDirectionGroupAdmin(admin.ModelAdmin):
 admin.site.register(TrainingDirectionGroup, TrainingDirectionGroupAdmin)
 
 
+# Специальности
+class SpecialityInLine(admin.TabularInline):
+    model = Speciality
+
+
+class SpecialityGroupAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (
+            None,
+            {
+                'fields': [
+                    'name',
+                ]
+            }
+        ),
+    ]
+    inlines = [SpecialityInLine]
+
+admin.site.register(SpecialityGroup, SpecialityGroupAdmin)
+
+
 # Полдготовительные курсы
 admin.site.register(Course)
 
