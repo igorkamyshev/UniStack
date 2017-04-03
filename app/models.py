@@ -125,9 +125,9 @@ class Specialty(models.Model):
 
 # ВУЗы
 class University(models.Model):
-    name = models.CharField(max_length=255)
-    abbr = models.CharField(max_length=127)
-    site = models.URLField()
+    name = models.CharField('название', max_length=255)
+    abbr = models.CharField('аббревиатура', max_length=127)
+    site = models.URLField('сайт')
 
     city = models.ForeignKey(City, on_delete=models.PROTECT)
 
@@ -142,9 +142,9 @@ class University(models.Model):
 
 
 class Subdivision(models.Model):
-    name = models.CharField(max_length=255)
-    abbr = models.CharField(max_length=127)
-    site = models.URLField()
+    name = models.CharField('название', max_length=255)
+    abbr = models.CharField('аббревиатура', max_length=127)
+    site = models.URLField('сайт')
 
     university = models.ForeignKey(University, on_delete=models.CASCADE)
 
@@ -157,8 +157,8 @@ class Subdivision(models.Model):
 
 
 class Department(models.Model):
-    name = models.CharField(max_length=255)
-    site = models.URLField()
+    name = models.CharField('название', max_length=255)
+    site = models.URLField('сайт')
 
     subdivision = models.ForeignKey(Subdivision, on_delete=models.CASCADE)
 
@@ -168,3 +168,21 @@ class Department(models.Model):
     class Meta:
         verbose_name = 'кафедра'
         verbose_name_plural = 'кафедры'
+
+
+# Полдготовительные курсы
+class Course(models.Model):
+    name = models.CharField('название', max_length=255)
+    cost = models.IntegerField('стоимость за семестр')
+    percent = models.FloatField('комиссия')
+    expiration_date = models.DateField('дата окончания обновления')
+
+    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'подготовительные курсы'
+        verbose_name_plural = 'подготовительные курсы'

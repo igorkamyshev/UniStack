@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Exam, Assistant, Country, Region, City, TrainingDirectionGroup, TrainingDirection
+from .models import *
 
 admin.site.register(Exam)
 
@@ -49,4 +49,8 @@ class TrainingDirectionGroupAdmin(admin.ModelAdmin):
     inlines = [TrainingDirectionInLine]
 
 admin.site.register(TrainingDirectionGroup, TrainingDirectionGroupAdmin)
+
+
+# Полдготовительные курсы
+admin.site.register(Course)
 
