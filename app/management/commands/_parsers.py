@@ -1,5 +1,6 @@
 from app.models import TrainingDirectionGroup, TrainingDirection
 from app.models import Country, Region, City
+from app.models import University
 from django.core.exceptions import ObjectDoesNotExist
 
 from lxml.html import fromstring
@@ -13,7 +14,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 
 class Parser:
-    def parse(self):
+    def parse(self, **kwargs):
         pass
 
 
@@ -41,7 +42,7 @@ class GoogleSheetsCitiesParser(GoogleSheetsParser):
     region_count = 0
     city_count = 0
 
-    def parse(self):
+    def parse(self, **kwargs):
         worksheet = GoogleSheetsParser.get_worksheet(self, '1Mp9r7CNxVnKip-tLAFpbGp4K_MY2iUrbrBOQBcsKLVE')
 
         i = 2
@@ -92,8 +93,88 @@ class GoogleSheetsCitiesParser(GoogleSheetsParser):
         return [
             'New Countries: ' + str(self.country_count),
             'New Regions: ' + str(self.region_count),
-            'New Cities: ' + str(self.city_count)
+            'New Cities: ' + str(self.city_count),
         ]
+
+
+class GoogleSheetsUniversitiesParser(GoogleSheetsParser):
+    university_count = 0
+    city_count = 0
+    unknown_region = False
+
+    def parse(self, **kwargs):
+        worksheet = GoogleSheetsParser.get_worksheet(self, '15Q8sDyG_eBUHMcriIAHTmwDcdSdJSSLNAo34iBZKyJk')
+
+        i = 2
+        while True:
+            values_list = worksheet.row_values(i)
+            i += 1
+
+            if not values_list[0]:
+                break
+
+            if values_list[5] == kwargs['options']['wave']:
+                try:
+                    university = University.objects.get(
+                        name=values_list[0]
+                    )
+                except ObjectDoesNotExist:
+                    try:
+                        city = City.objects.get(
+                            name=values_list[3]
+                        )
+                    except ObjectDoesNotExist:
+                        try:
+                            region = Region.objects.get(
+                                name='unknown'
+                            )
+                        except ObjectDoesNotExist:
+                            try:
+                                country = Country.objects.get(
+                                    name=values_list[2]
+                                )
+                            except ObjectDoesNotExist:
+                                country = Country(
+                                    name=values_list[2]
+                                )
+                                country.save()
+                            region = Region(
+                                name='unknown',
+                                country=country,
+                            )
+                            self.unknown_region = True
+                            region.save()
+                        city = City(
+                            name=values_list[3],
+                            region=region,
+                            lat=0,
+                            lon=0
+                        )
+                        self.city_count += 1
+                        city.save()
+
+                    university = University(
+                        name=values_list[0],
+                        abbr=values_list[1],
+                        city=city,
+                        site=values_list[4]
+                    )
+                    self.university_count += 1
+                    university.save()
+
+        result = [
+            'Wave ' + str(kwargs['options']['wave']),
+            'New University: ' + str(self.university_count),
+        ]
+        if self.city_count > 0:
+            result.append('------')
+            result.append('Check this situation! It is not normal!')
+            result.append('------')
+            result.append('New City: ' + str(self.city_count))
+            if self.unknown_region:
+                result.append('Added Region "unknown"')
+
+        return result
 
 
 class FgosTrainingDirectionParser(Parser):
@@ -159,7 +240,7 @@ class FgosTrainingDirectionParser(Parser):
 
         return direction_array
 
-    def parse(self):
+    def parse(self, **kwargs):
         request = requests.get(self.BASE_URL + '/abitur/act.6/index.php')
 
         dom = fromstring(request.text)
