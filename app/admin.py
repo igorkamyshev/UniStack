@@ -2,8 +2,12 @@ from django.contrib import admin
 
 from .models import *
 
+
+# Экзамены
 admin.site.register(Exam)
 
+
+# Благодарности
 admin.site.register(Assistant)
 
 

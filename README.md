@@ -13,6 +13,7 @@
 + `pip install lxml`
 + `pip install requests`
 + `pip install gspread`
++ `pip install django-admin-tools`
 + `python manage.py migrate`
 
 ## Работа с проектом локально
