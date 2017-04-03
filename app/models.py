@@ -129,6 +129,8 @@ class University(models.Model):
     abbr = models.CharField('аббревиатура', max_length=127)
     site = models.URLField('сайт')
 
+    hide = models.BooleanField('скрыт', default=True)
+
     city = models.ForeignKey(City, on_delete=models.PROTECT)
 
     parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='branches')
