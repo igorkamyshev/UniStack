@@ -62,6 +62,7 @@ class CustomIndexDashboard(Dashboard):
                 title=u'Образование',
                 models=(
                     'app.models.Exam',
+                    'app.models.University',
                 ),
             )
         )

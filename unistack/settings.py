@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'admin_tools.theming',
     'admin_tools.menu',
     'admin_tools.dashboard',
+    'nested_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -79,7 +80,7 @@ TEMPLATES = [
     },
 ]
 
-ADMIN_TOOLS_INDEX_DASHBOARD = 'unistack.dashboard.CustomIndexDashboard'
+ADMIN_TOOLS_INDEX_DASHBOARD = 'app.dashboard.CustomIndexDashboard'
 
 WSGI_APPLICATION = 'unistack.wsgi.application'
 
