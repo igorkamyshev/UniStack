@@ -1,0 +1,8 @@
+{% extends 'app/_base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <h2>City – {{ object.name }}</h2>
+    <p>lat: {{ object.lat }}</p>
+    <p>lon: {{ object.lon }}</p>
+{% endblock content %}

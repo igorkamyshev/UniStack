@@ -2,3 +2,4 @@
 /db.sqlite3
 unistack/__pycache__/
 node_modules
+/unistack/static/app.js

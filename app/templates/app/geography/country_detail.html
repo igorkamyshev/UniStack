@@ -1,0 +1,11 @@
+{% extends 'app/_base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <h2>Country – {{ object.name }}</h2>
+    <ul>
+        {% for region in object.region_set.all %}
+            <li><a href="{% url 'app:region_detail' region.id %}">{{ region.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock content %}
