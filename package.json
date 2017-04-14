@@ -1,7 +1,7 @@
 {
   "name": "unistack",
   "version": "1.0.0",
-  "description": "> если на машине установлены разные версии Python, то везде следует заменить `python` на `python3`",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "build": "webpack"
@@ -28,6 +28,10 @@
     "webpack": "^2.3.2"
   },
   "dependencies": {
-    "react-tap-event-plugin": "^2.0.1"
+    "material-ui-responsive-drawer": "^1.1.12",
+    "react-redux": "^5.0.3",
+    "react-tap-event-plugin": "^2.0.1",
+    "redux": "^3.6.0",
+    "redux-responsive": "^4.1.1"
   }
 }
