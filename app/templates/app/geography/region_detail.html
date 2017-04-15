@@ -2,10 +2,29 @@
 {% load staticfiles %}
 
 {% block content %}
-    <h2>Region – {{ object.name }}</h2>
-    <ul>
-        {% for city in object.city_set.all %}
-            <li><a href="{% url 'app:city_detail' city.id %}">{{ city.name }}</a></li>
-        {% endfor %}
-    </ul>
+    <h2>{{ object.name }} | города</h2>
+    {% for city in object.city_set.all %}
+        {% if forloop.counter0|divisibleby:2 %}
+            <div class="row">
+        {% endif %}
+                <div class="col-sm-12 col-md-6">
+                    <div class="thumbnail">
+                        <img src="..." alt="...">
+                        <div class="caption">
+                            <h3>{{ city.name }}</h3>
+                            <p>ВУЗов: {{ city.university_count }}</p>
+                            <p>
+                                <a
+                                        href="{% url 'app:city_detail' city.id %}"
+                                        class="btn btn-primary"
+                                        role="button"
+                                >Подробнее</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+        {% if forloop.counter|divisibleby:2 %}
+            </div>
+        {% endif %}
+    {% endfor %}
 {% endblock content %}

@@ -2,10 +2,10 @@
 {% load staticfiles %}
 
 {% block content %}
-    <h2>Country – {{ object.name }}</h2>
-    <ul>
+    <h2>{{ object.name }} | регионы</h2>
+    <ul class="list-group">
         {% for region in object.region_set.all %}
-            <li><a href="{% url 'app:region_detail' region.id %}">{{ region.name }}</a></li>
+            <li class="list-group-item"><a href="{% url 'app:region_detail' region.id %}">{{ region.name }} (ВУЗов: {{ region.university_count }})</a></li>
         {% endfor %}
     </ul>
 {% endblock content %}
