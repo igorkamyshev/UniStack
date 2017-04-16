@@ -1,0 +1,31 @@
+{% extends 'app/_base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <h2>Университеты</h2>
+    {% for university in object_list %}
+        {% if forloop.counter0|divisibleby:3 %}
+            <div class="row">
+        {% endif %}
+                <div class="col-sm-12 col-md-4">
+                    <div class="thumbnail">
+                        <img src="..." alt="...">
+                        <div class="caption">
+                            <h3>{{ university.abbr }}</h3>
+                            <p>{{ university.name }}</p>
+                            <p>{{ university.country }}, {{ university.city }}</p>
+                            <p>
+                                <a
+                                        href="{% url 'app:university_detail' university.id %}"
+                                        class="btn btn-primary"
+                                        role="button"
+                                >Подробнее</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+        {% if forloop.counter|divisibleby:3 %}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endblock content %}

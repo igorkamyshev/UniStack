@@ -163,6 +163,14 @@ class University(models.Model):
 
     city = models.ForeignKey(City, on_delete=models.PROTECT)
 
+    @property
+    def region(self):
+        return self.city.region
+
+    @property
+    def country(self):
+        return self.city.region.country
+
     parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='branches')
 
     def __str__(self):

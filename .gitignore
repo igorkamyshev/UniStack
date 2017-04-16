@@ -3,3 +3,4 @@
 unistack/__pycache__/
 node_modules
 /unistack/static/app.js
+/unistack/static/admin/fonts/LICENSE.txt
