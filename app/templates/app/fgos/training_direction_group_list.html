@@ -1,0 +1,15 @@
+{% extends 'app/_base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <h2>Группы направлений подготовки ФГОС</h2>
+    <ul class="list-group">
+        {% for training_direction_group in object_list %}
+            <li class="list-group-item">
+                <a href="{% url 'app:training_direction_group_detail' training_direction_group.id %}">
+                    {{ training_direction_group.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

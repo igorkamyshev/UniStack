@@ -3,7 +3,9 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
 
-from .models import Country, Region, City, University
+from .models import Country, Region, City, \
+    University, \
+    TrainingDirectionGroup, TrainingDirection
 
 
 class IndexView(generic.TemplateView):
@@ -44,3 +46,19 @@ class UniversityList(generic.ListView):
 class UniversityDetail(generic.DetailView):
     model = University
     template_name = 'app/universities/university_detail.html'
+
+
+# ФГОС
+class TrainingDirectionGroupList(generic.ListView):
+    model = TrainingDirectionGroup
+    template_name = 'app/fgos/training_direction_group_list.html'
+
+
+class TrainingDirectionGroupDetail(generic.DetailView):
+    model = TrainingDirectionGroup
+    template_name = 'app/fgos/training_direction_group_detail.html'
+
+
+class TrainingDirectionDetail(generic.DetailView):
+    model = TrainingDirection
+    template_name = 'app/fgos/training_direction_detail.html'

@@ -1,0 +1,15 @@
+{% extends 'app/_base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <h2>{{ object.name }}</h2>
+    <ul class="list-group">
+        {% for training_direction in object.trainingdirection_set.all %}
+            <li class="list-group-item">
+                <a href="{% url 'app:training_direction_detail' training_direction.id %}">
+                    {{ training_direction.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

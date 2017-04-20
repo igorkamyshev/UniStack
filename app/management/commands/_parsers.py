@@ -231,7 +231,7 @@ class FgosTrainingDirectionParser(Parser):
                                 direction = TrainingDirection(
                                     name=item.text
                                 )
-                                direction.url = self.base_url + item.get('href')
+                                direction.url = self.BASE_URL + item.get('href')
                                 direction.group = group
                                 direction = self.__parse_direction(direction)
                             if direction:
