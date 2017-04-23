@@ -5,13 +5,11 @@
 ## Развертывание на локальной машине
 + `git clone git@bitbucket.org:GarikNovel/unistack.git`
 + `cd unistack`
-+ `npm install`
 + `pip install -r requirements.txt --upgrade`
 + `python manage.py migrate`
 
 ## Работа с проектом локально
 + `git pull`
-+ `npm install`
 + `pip install -r requirements.txt --upgrade`
 + `python manage.py migrate`
 + запустить сервер `python manage.py runserver 6340`
