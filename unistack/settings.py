@@ -94,7 +94,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'unistack',
-        'USER': 'TheGarik',
+        'USER': 'TheGarik@unistack',
         'PASSWORD': 'unistack1488',
         'HOST': 'TheGarik.mysql.pythonanywhere-services.com'
     }
