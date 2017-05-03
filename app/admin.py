@@ -72,8 +72,9 @@ class SubdivisionInLine(nested_admin.NestedStackedInline):
 class UniversityAdmin(nested_admin.NestedModelAdmin):
     fieldsets = [
         (None,          {'fields': ['name', 'abbr', 'parent']}),
-        ('Контакты',    {'fields': ['city', 'site']}),
-        ('Отображение', {'fields': ['hide']})
+        ('Контакты',    {'fields': ['city', 'site', 'address']}),
+        ('Отображение', {'fields': ['hide']}),
+        ('OK', {'fields': ['social_links']})
     ]
     inlines = [SubdivisionInLine]
 

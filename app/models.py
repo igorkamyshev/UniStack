@@ -12,6 +12,18 @@ class Exam(models.Model):
         verbose_name_plural = 'экзамены'
 
 
+class NamedLink(models.Model):
+    name = models.CharField('название', max_length=255)
+    url = models.URLField
+
+    def __str__(self):
+        return '{name} ({url})'.format(name=self.name, url=self.url)
+
+    class Meta:
+        verbose_name = 'именованая ссылка'
+        verbose_name_plural = 'именованные ссылки'
+
+
 class Assistant(models.Model):
     text = models.TextField('текст')
     title = models.CharField('заголовок', max_length=255)
@@ -158,6 +170,7 @@ class University(models.Model):
     name = models.CharField('название', max_length=255)
     abbr = models.CharField('аббревиатура', max_length=127)
     site = models.URLField('сайт')
+    address = models.CharField('адрес главного корпуса', max_length=511, null=True, blank=True)
 
     hide = models.BooleanField('скрыт', default=True)
 
