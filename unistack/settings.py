@@ -23,9 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = ')k(f2$es-8f8hfa+c5_h9#wd9v8r=2+co-_f60av_&6z$0p-(-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'http://thegarik.pythonanywhere.com/',
+]
 
 
 # Application definition
