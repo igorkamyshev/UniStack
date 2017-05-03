@@ -93,8 +93,8 @@ WSGI_APPLICATION = 'unistack.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'unistack',
-        'USER': 'TheGarik@unistack',
+        'NAME': 'TheGarik$unistack',
+        'USER': 'TheGarik',
         'PASSWORD': 'unistack1488',
         'HOST': 'TheGarik.mysql.pythonanywhere-services.com'
     }
