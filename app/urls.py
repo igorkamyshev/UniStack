@@ -22,6 +22,8 @@ urlpatterns = [
         views.UniversityList.as_view(), name='university_list'),
     url(r'^university/(?P<pk>[0-9]+)/$',
         views.UniversityDetail.as_view(), name='university_detail'),
+    url(r'subdivision/(?P<pk>[0-9]+)/$',
+        views.SubdivisionDetail.as_view(), name='subdivision_detail'),
     # ФГОС
     url(r'training_direction_groups',
         views.TrainingDirectionGroupList.as_view(), name='training_direction_group_list'),

@@ -4,4 +4,37 @@
 {% block content %}
     <h2>{{ object.abbr }}</h2>
     <p>{{ object.name }}</p>
+    <p>
+        <a
+                href="{{ object.site }}"
+                class="btn btn-primary"
+                role="button"
+                target="_blank"
+        >Официальный сайт</a>
+    </p>
+
+    {% if object.hide %}
+        <p>Внимание! ВУЗ не обработан!</p>
+    {% endif %}
+
+    <h3>Факультеты \ институты</h3>
+    <div class="row">
+        <div class="col-xs-12">
+            <ul class="list-group">
+                {% for subdivision in object.subdivision_set.all %}
+                    <li class="list-group-item"><a href="{% url 'app:subdivision_detail' subdivision.id %}">{{ subdivision.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    {% if object.city.university_count > 1 %}
+        <p>
+            <a
+                    href="{% url 'app:city_detail' object.city.id %}"
+                    class="btn btn-primary"
+                    role="button"
+            >Все ВУЗы города ({{ object.city.university_count }} штук)</a>
+        </p>
+    {% endif %}
 {% endblock content %}

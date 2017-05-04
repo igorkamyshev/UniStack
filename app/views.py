@@ -1,13 +1,9 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
 from django.views import generic
 
-from .utils import distance_in_km
-
 from .models import Country, Region, City, \
-    University, \
+    University, Subdivision, \
     TrainingDirectionGroup, TrainingDirection
+from .utils import distance_in_km
 
 
 class IndexView(generic.TemplateView):
@@ -15,7 +11,7 @@ class IndexView(generic.TemplateView):
 
 
 class AboutView(generic.TemplateView):
-    template_name = 'app/index.html'
+    template_name = 'app/about.html'
 
 
 # География
@@ -66,6 +62,11 @@ class UniversityList(generic.ListView):
 class UniversityDetail(generic.DetailView):
     model = University
     template_name = 'app/universities/university_detail.html'
+
+
+class SubdivisionDetail(generic.DetailView):
+    model = Subdivision
+    template_name = 'app/universities/subdivision_detail.html'
 
 
 # ФГОС
