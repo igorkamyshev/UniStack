@@ -31,12 +31,12 @@
         {% endif %}
     {% endfor %}
 
-    <h3>Города рядом</h3>
+    <h3>Университеты в соседних городах</h3>
     <div class="row">
         <div class="col-xs-12">
             <ul class="list-group">
-                {% for city in nearby_cities %}
-                    <li class="list-group-item"><a href="{% url 'app:city_detail' city.id %}">{{ city.name }} (ВУЗов: {{ city.university_count }})</a></li>
+                {% for nearby_university in object.nearby_universities %}
+                    <li class="list-group-item"><a href="{% url 'app:university_detail' nearby_university.id %}">{{ nearby_university.name }}</a></li>
                 {% endfor %}
             </ul>
         </div>

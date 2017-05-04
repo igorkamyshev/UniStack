@@ -3,7 +3,6 @@ from django.views import generic
 from .models import Country, Region, City, \
     University, Subdivision, \
     TrainingDirectionGroup, TrainingDirection
-from .utils import distance_in_km
 
 
 class IndexView(generic.TemplateView):
@@ -33,24 +32,6 @@ class RegionDetail(generic.DetailView):
 class CityDetail(generic.DetailView):
     model = City
     template_name = 'app/geography/city_detail.html'
-
-    MAX_DISTANCE = 200
-
-    def get_context_data(self, **kwargs):
-        context = super(CityDetail, self).get_context_data(**kwargs)
-
-        context['nearby_cities'] = []
-        all_cities = City.objects.all()
-
-        lat = context['object'].lat
-        lon = context['object'].lon
-
-        for city in all_cities:
-            if (distance_in_km(lat, lon, city.lat, city.lon) < self.MAX_DISTANCE) and \
-                    (city.university_count > 0) and (city.id != context['object'].id):
-                context['nearby_cities'].append(city)
-
-        return context
 
 
 # Университеты

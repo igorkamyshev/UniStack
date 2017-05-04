@@ -1,5 +1,7 @@
 from django.db import models
 
+from app.utils import distance_in_km
+
 
 class Country(models.Model):
     name = models.CharField('название', max_length=255)
@@ -40,6 +42,8 @@ class Region(models.Model):
 
 
 class City(models.Model):
+    MAX_DISTANCE = 200
+
     name = models.CharField('название', max_length=255)
     lat = models.FloatField('широта')
     lon = models.FloatField('долгота')
@@ -49,6 +53,18 @@ class City(models.Model):
     @property
     def university_count(self):
         return len(self.university_set.all())
+
+    @property
+    def nearby_universities(self):
+        nearby_universities = []
+        all_cities = City.objects.all()
+
+        for city in all_cities:
+            if (distance_in_km(self.lat, self.lon, city.lat, city.lon) < self.MAX_DISTANCE) and \
+                    (city.university_count > 0) and (city.id != self.id):
+                nearby_universities += city.university_set.all()
+
+        return nearby_universities
 
     def __str__(self):
         return self.name
