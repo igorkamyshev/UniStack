@@ -2,7 +2,43 @@
 {% load staticfiles %}
 
 {% block content %}
-    <h2>City – {{ object.name }}</h2>
-    <p>lat: {{ object.lat }}</p>
-    <p>lon: {{ object.lon }}</p>
+    <h2>{{ object.name }}</h2>
+
+    <h3>Университеты</h3>
+    {% for university in object.university_set.all %}
+        {% if forloop.counter0|divisibleby:3 %}
+            <div class="row">
+        {% endif %}
+                <div class="col-sm-12 col-md-4">
+                    <div class="thumbnail">
+                        <img src="..." alt="...">
+                        <div class="caption">
+                            <h3>{{ university.abbr }}</h3>
+                            <p>{{ university.name }}</p>
+                            <p>{{ university.country }}, {{ university.city }}</p>
+                            <p>
+                                <a
+                                        href="{% url 'app:university_detail' university.id %}"
+                                        class="btn btn-primary"
+                                        role="button"
+                                >Подробнее</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+        {% if forloop.counter|divisibleby:3 or forloop.counter == object.university_set.all|length %}
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    <h3>Города рядом</h3>
+    <div class="row">
+        <div class="col-xs-12">
+            <ul class="list-group">
+                {% for city in nearby_cities %}
+                    <li class="list-group-item"><a href="{% url 'app:city_detail' city.id %}">{{ city.name }} (ВУЗов: {{ city.university_count }})</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 {% endblock content %}
