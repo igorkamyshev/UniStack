@@ -25,6 +25,16 @@
         <div class="col s12">
             {% show_university_list city.university_set.all %}
         </div>
+        {% if city.nearby_universities|length > 0 %}
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <p class="card-title">Университеты в соседних городах</p>
+                    </div>
+                </div>
+                {% show_university_list city.nearby_universities %}
+            </div>
+        {% endif %}
     </div>
 
 {% endblock content %}

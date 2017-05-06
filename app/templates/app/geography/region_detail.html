@@ -2,29 +2,37 @@
 {% load staticfiles %}
 
 {% block content %}
-    <h2>{{ object.name }} | города</h2>
-    {% for city in object.city_set.all %}
-        {% if forloop.counter0|divisibleby:2 %}
-            <div class="row">
-        {% endif %}
-                <div class="col-sm-12 col-md-6">
-                    <div class="thumbnail">
-                        <img src="..." alt="...">
-                        <div class="caption">
-                            <h3>{{ city.name }}</h3>
-                            <p>ВУЗов: {{ city.university_count }}</p>
-                            <p>
-                                <a
-                                        href="{% url 'app:city_detail' city.id %}"
-                                        class="btn btn-primary"
-                                        role="button"
-                                >Подробнее</a>
-                            </p>
-                        </div>
-                    </div>
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">{{ region.name }}</span>
                 </div>
-        {% if forloop.counter|divisibleby:2 %}
             </div>
-        {% endif %}
-    {% endfor %}
+        </div>
+        <div class="col s12">
+            {% for city in object.city_set.all %}
+                {% if forloop.counter0|divisibleby:2 %}
+                    <div class="row">
+                {% endif %}
+                        <div class="col s12 col m6">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="{% static "app/img/sorry.png" %}" alt="city" />
+                                </div>
+                                <div class="card-content">
+                                    <p class="card-title">{{ city.name }}</p>
+                                    <p>ВУЗов: {{ city.university_count }}</p>
+                                </div>
+                                <div class="card-action">
+                                    <a href="{% url 'app:city_detail' city.id %}">Подробнее</a>
+                                </div>
+                            </div>
+                        </div>
+                {% if forloop.counter|divisibleby:2 or forloop.counter == object.city_set.all|length %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
 {% endblock content %}
