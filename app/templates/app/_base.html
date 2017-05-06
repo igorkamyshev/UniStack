@@ -3,75 +3,77 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Bootstrap -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+        <link rel="stylesheet" href="{% static "app/css/materialize.css" %}">
+        <link rel="stylesheet" href="{% static "app/css/styles.css" %}">
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
         <title>...</title>
     </head>
     <body>
 
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="{% url 'app:index' %}">UniStack</a>
+        <header class="navbar-fixed">
+              <nav class="top-nav">
+                <div class="nav-wrapper z-depth-2">
+                    <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <a href="{% url 'app:index' %}" class="brand-logo">UniStack</a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a href="#">Log In</a></li>
+                        <li><a href="#">Sign Up</a></li>
+                    </ul>
                 </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li><a href="{% url 'app:university_list' %}">Университеты</a></li>
-                        <li><a href="{% url 'app:country_list' %}">География</a></li>
-                        <li><a href="{% url 'app:training_direction_group_list' %}">ФГОС</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
+              </nav>
+        </header>
+        <ul id="slide-out" class="side-nav fixed z-depth-2">
+            <li>
+                <div class="userView">
+                    <div class="background">
+                        <img src="{% static "app/img/back.png" %}" alt="back" />
+                    </div>
+                    <a href="#!user"><img class="circle" src="{% static "app/img/logo.png" %}" alt="logo" /></a>
+                    <a href="#!name"><span class="white-text name">UniStack</span></a>
+                    <a href="#!email"><span class="white-text email">That's the ticket!</span></a>
+                </div>
+            </li>
+            <li><a href="{% url 'app:university_list' %}"><i class="material-icons">cloud</i>Университеты</a></li>
+            <li><a href="{% url 'app:country_list' %}"><i class="material-icons">cloud</i>География</a></li>
+            <li><a href="{% url 'app:training_direction_group_list' %}"><i class="material-icons">cloud</i>ФГОС</a></li>
+        </ul>
 
-                                <li><a href="#">Separated link</a></li>
-
-                                <li><a href="#">One more separated link</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <form class="navbar-form navbar-left">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                        </div>
-                        <button type="submit" class="btn btn-default">Submit</button>
-                    </form>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Link</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
-
-        <div class="container-fluid">
-            <div class="page-header">
-                <h1>UniStack <small>Временный дизайн</small></h1>
-            </div>
+        <main class="row">
             {% block content %}
             {% endblock content %}
-        </div>
+        </main>
+
+        <footer class="page-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+                    </div>
+                    <div class="col l4 offset-l2 s12">
+                        <ul>
+                            <li><a class="grey-text text-lighten-3" href="#!">Рекламодателям</a></li>
+                            <li><a class="grey-text text-lighten-3" href="#!">Благодарности</a></li>
+                            <li><a class="grey-text text-lighten-3" href="#!">Партнеры</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    © 2017 UniStack
+                    <a class="grey-text text-lighten-4 right" href="#!">О проекте</a>
+                </div>
+            </div>
+        </footer>
+
+
+        {% block js %}
+            <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+
+            <script type="text/javascript" src="{% static "app/js/side-nav.js" %}"></script>
+        {% endblock %}
     </body>
 </html>
