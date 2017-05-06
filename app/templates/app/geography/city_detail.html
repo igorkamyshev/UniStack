@@ -1,5 +1,6 @@
 {% extends 'app/_base.html' %}
 {% load staticfiles %}
+{% load layout_tags %}
 
 {% block content %}
     <div class="row">
@@ -22,28 +23,8 @@
             </div>
         </div>
         <div class="col s12">
-            {% for university in city.university_set.all %}
-                {% if forloop.counter0|divisibleby:3 %}
-                    <div class="row">
-                {% endif %}
-                        <div class="col s12 m4">
-                            <div class="card">
-                                <div class="card-image">
-                                    <img src="{% static "app/img/placeholder.jpg" %}" alt="logo" />
-                                </div>
-                                <div class="card-content">
-                                    <p>{{ university.name }}</p>
-                                </div>
-                                <div class="card-action">
-                                    <a href="{% url "app:university_detail" university.id %}">Подробности</a>
-                                    <a href="{{ university.site }}" target="_blank">Сайт</a>
-                                </div>
-                            </div>
-                        </div>
-                {% if forloop.counter|divisibleby:3 or forloop.counter == city.university_set.all|length %}
-                    </div>
-                {% endif %}
-            {% endfor %}
+            {% show_university_list city.university_set.all %}
         </div>
     </div>
+
 {% endblock content %}
