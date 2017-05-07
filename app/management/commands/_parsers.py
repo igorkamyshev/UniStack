@@ -1,3 +1,5 @@
+from abc import ABCMeta, abstractmethod
+
 import gspread
 import requests
 from django.core.exceptions import ObjectDoesNotExist
@@ -10,12 +12,13 @@ from app.models import TrainingDirectionGroup, TrainingDirection
 from app.models import University
 
 
-class Parser:
+class IParser(metaclass=ABCMeta):
+    @abstractmethod
     def parse(self, **kwargs):
         pass
 
 
-class GoogleSheetsParser(Parser):
+class GoogleSheetsParser(IParser):
     def __get_credentials(self):
         scope = ['https://spreadsheets.google.com/feeds']
 
@@ -204,7 +207,7 @@ class UniversitiesParser(GoogleSheetsParser):
         return result
 
 
-class FgosTrainingDirectionParser(Parser):
+class FgosTrainingDirectionParser(IParser):
     BASE_URL = 'http://www.edu.ru/'
 
     direction_count = 0
