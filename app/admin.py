@@ -75,7 +75,7 @@ class RatingPositionInline(nested_admin.NestedStackedInline):
 
 class UniversityAdmin(nested_admin.NestedModelAdmin):
     fieldsets = [
-        (None,          {'fields': ['name', 'abbr', 'parent']}),
+        (None,          {'fields': ['name', 'abbr', 'parent', 'logo']}),
         ('Контакты',    {'fields': ['city', 'site', 'address']}),
         ('Отображение', {'fields': ['hide']}),
     ]

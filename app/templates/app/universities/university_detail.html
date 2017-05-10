@@ -17,7 +17,7 @@
         <div class="col s12 m5">
             <div class="card">
                 <div class="card-image">
-                    <img src="{% static "app/img/placeholder.jpg" %}" alt="logo" />
+                    <img src="{{ object.logo.url }}" alt="logo" />
                 </div>
                 <div class="card-content">
                     <p>{{ object.name }}</p>

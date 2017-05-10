@@ -6,6 +6,8 @@ from . import geography
 class University(models.Model):
     name = models.CharField('название', max_length=255)
     abbr = models.CharField('аббревиатура', max_length=127)
+    logo = models.ImageField(upload_to='university_logo/', default='logo_default.png')
+
     site = models.URLField('сайт')
     address = models.CharField('адрес главного корпуса', max_length=511, null=True, blank=True)
 
@@ -79,7 +81,7 @@ class RatingPosition(models.Model):
     university = models.ForeignKey(University, on_delete=models.CASCADE)
 
     def __str__(self):
-        rerurn('{rating}, {university}: {position} позиция'.format(
+        return('{rating}, {university}: {position} позиция'.format(
             rating=self.rating.name,
             university=self.university.abbr,
             position=self.position))
