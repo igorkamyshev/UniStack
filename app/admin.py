@@ -85,4 +85,11 @@ admin.site.register(University, UniversityAdmin)
 
 
 # Рейтинги
-admin.site.register(Rating)
+class RatingAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None, {'fields': ['name', 'source', 'year']}),
+    ]
+    inlines = [RatingPositionInline]
+
+
+admin.site.register(Rating, RatingAdmin)
