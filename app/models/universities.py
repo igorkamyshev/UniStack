@@ -77,3 +77,13 @@ class RatingPosition(models.Model):
     position = models.IntegerField('позиция в рейтинге')
     rating = models.ForeignKey(Rating, on_delete=models.CASCADE)
     university = models.ForeignKey(University, on_delete=models.CASCADE)
+
+    def __str__(self):
+        rerurn('{rating}, {university}: {position} позиция'.format(
+            rating=self.rating.name,
+            university=self.university.abbr,
+            position=self.position))
+
+    class Meta:
+        verbose_name = 'позиция в рейтинге'
+        verbose_name_plural = 'позиции в рейтинге'
