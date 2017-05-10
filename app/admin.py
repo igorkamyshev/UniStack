@@ -1,8 +1,7 @@
-from django.contrib import admin
 import nested_admin
+from django.contrib import admin
 
 from .models import *
-
 
 # Экзамены
 admin.site.register(Exam)
@@ -69,13 +68,21 @@ class SubdivisionInLine(nested_admin.NestedStackedInline):
     inlines = [DepartmentInLine]
 
 
+class RatingPositionInline(nested_admin.NestedStackedInline):
+    model = RatingPosition
+    extra = 1
+
+
 class UniversityAdmin(nested_admin.NestedModelAdmin):
     fieldsets = [
         (None,          {'fields': ['name', 'abbr', 'parent']}),
         ('Контакты',    {'fields': ['city', 'site', 'address']}),
         ('Отображение', {'fields': ['hide']}),
     ]
-    inlines = [SubdivisionInLine]
+    inlines = [SubdivisionInLine, RatingPositionInline]
 
 admin.site.register(University, UniversityAdmin)
 
+
+# Рейтинги
+admin.site.register(Rating)

@@ -43,32 +43,30 @@
             </ul>
         </div>
         <div class="col s12 m7">
-            <div class="card">
-                <div class="card-content">
-                    <table class="striped centered">
-                        <thead>
-                        <tr>
-                            <th>Рейтинг</th>
-                            <th>Место</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>Eclair</td>
-                            <td>$0.87</td>
-                        </tr>
-                        <tr>
-                            <td>Jellybean</td>
-                            <td>$3.76</td>
-                        </tr>
-                        <tr>
-                            <td>Lollipop</td>
-                            <td>$7.00</td>
-                        </tr>
-                        </tbody>
-                    </table>
+            {% if object.ratingposition_set.all|length > 0 %}
+                <div class="card">
+                    <div class="card-content">
+                        <table class="striped centered">
+                            <thead>
+                            <tr>
+                                <th>Год</th>
+                                <th>Рейтинг</th>
+                                <th>Место</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for rating_position in object.ratingposition_set.all %}
+                                <tr>
+                                    <td>{{ rating_position.rating.year }}</td>
+                                    <td>{{ rating_position.rating.name }}</td>
+                                    <td>{{ rating_position.position }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            {% endif %}
             <div class="row">
                 <div class="col s12 m4">
                     <div class="card">

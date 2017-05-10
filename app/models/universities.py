@@ -58,3 +58,22 @@ class Department(models.Model):
     class Meta:
         verbose_name = 'кафедра'
         verbose_name_plural = 'кафедры'
+
+
+class Rating(models.Model):
+    name = models.CharField('название', max_length=511)
+    source = models.URLField('адрес источника')
+    year = models.IntegerField('год сбора информации')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'рейтинг'
+        verbose_name_plural = 'рейтинги'
+
+
+class RatingPosition(models.Model):
+    position = models.IntegerField('позиция в рейтинге')
+    rating = models.ForeignKey(Rating, on_delete=models.CASCADE)
+    university = models.ForeignKey(University, on_delete=models.CASCADE)

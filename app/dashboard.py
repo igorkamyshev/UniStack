@@ -62,6 +62,7 @@ class CustomIndexDashboard(Dashboard):
                 models=(
                     'app.models.utils.Exam',
                     'app.models.universities.University',
+                    'app.models.universities.Rating',
                 ),
             )
         )
