@@ -73,13 +73,17 @@ class RatingPositionInline(nested_admin.NestedStackedInline):
     extra = 1
 
 
+class NamedLinkUniversityInline(nested_admin.NestedStackedInline):
+    model = NamedLinkUniversity
+
+
 class UniversityAdmin(nested_admin.NestedModelAdmin):
     fieldsets = [
         (None,          {'fields': ['name', 'abbr', 'parent', 'logo']}),
         ('Контакты',    {'fields': ['city', 'site', 'address']}),
         ('Отображение', {'fields': ['hide']}),
     ]
-    inlines = [SubdivisionInline, RatingPositionInline]
+    inlines = [SubdivisionInline, RatingPositionInline, NamedLinkUniversityInline]
 
 admin.site.register(University, UniversityAdmin)
 

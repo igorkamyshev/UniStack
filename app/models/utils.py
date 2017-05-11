@@ -26,8 +26,11 @@ class Assistant(models.Model):
 
 
 class NamedLink(models.Model):
+    """
+    Абстрактный класс для всех именованных ссылок
+    """
     name = models.CharField('название', max_length=255)
-    url = models.URLField
+    url = models.URLField(null=True, blank=True)
 
     def __str__(self):
         return '{name} ({url})'.format(name=self.name, url=self.url)
@@ -35,3 +38,4 @@ class NamedLink(models.Model):
     class Meta:
         verbose_name = 'именованая ссылка'
         verbose_name_plural = 'именованные ссылки'
+        abstract = True

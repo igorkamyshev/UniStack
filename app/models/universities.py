@@ -1,6 +1,6 @@
 from django.db import models
 
-from . import geography
+from . import geography, utils
 
 
 class University(models.Model):
@@ -10,6 +10,8 @@ class University(models.Model):
 
     site = models.URLField('сайт')
     address = models.CharField('адрес главного корпуса', max_length=511, null=True, blank=True)
+
+    foundation_year = models.IntegerField('год основания', null=True, blank=True)
 
     hide = models.BooleanField('скрыт', default=True)
 
@@ -89,3 +91,7 @@ class RatingPosition(models.Model):
     class Meta:
         verbose_name = 'позиция в рейтинге'
         verbose_name_plural = 'позиции в рейтинге'
+
+
+class NamedLinkUniversity(utils.NamedLink):
+    university = models.ForeignKey(University, on_delete=models.CASCADE)
