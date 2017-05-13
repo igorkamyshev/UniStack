@@ -52,7 +52,7 @@
                         <div class="collapsible-body" style="padding: 0">
                             <div class="collection">
                                 {% for subdivision in object.subdivision_set.all %}
-                                    <a href="{% url 'app:subdivision_detail' subdivision.id %}" class="collection-item" target="_blank">Hjfkdhsjk hfksdfksj hjkhkfhds hkjfhsd f{{ subdivision.name }}</a>
+                                    <a href="{% url 'app:subdivision_detail' subdivision.id %}" class="collection-item" target="_blank">{{ subdivision.name }}</a>
                                 {% endfor %}
                             </div>
                         </div>
