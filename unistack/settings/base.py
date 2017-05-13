@@ -11,8 +11,8 @@ SECRET_KEY = ')k(f2$es-8f8hfa+c5_h9#wd9v8r=2+co-_f60av_&6z$0p-(-'
 INSTALLED_APPS = [
     'app.apps.AppConfig',
     'api_v0.apps.ApiV0Config',
-    # 'front.apps.FrontConfig',
-    # 'rest_framework',
+    'front.apps.FrontConfig',
+    'rest_framework',
     'admin_tools',
     'admin_tools.theming',
     'admin_tools.menu',
