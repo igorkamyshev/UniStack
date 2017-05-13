@@ -1,24 +1,24 @@
-from app.models import TrainingDirectionGroup, TrainingDirection
-from app.models import Country, Region, City
-from app.models import University
-from django.core.exceptions import ObjectDoesNotExist
-
-from lxml.html import fromstring
-from lxml import *
-import requests
-
-import os
+from abc import ABCMeta, abstractmethod
 
 import gspread
+import requests
+from django.core.exceptions import ObjectDoesNotExist
+from lxml.html import fromstring
 from oauth2client.service_account import ServiceAccountCredentials
 
+from app.models import Country, Region, City
+from app.models import Exam
+from app.models import TrainingDirectionGroup, TrainingDirection
+from app.models import University
 
-class Parser:
+
+class IParser(metaclass=ABCMeta):
+    @abstractmethod
     def parse(self, **kwargs):
         pass
 
 
-class GoogleSheetsParser(Parser):
+class GoogleSheetsParser(IParser):
     def __get_credentials(self):
         scope = ['https://spreadsheets.google.com/feeds']
 
@@ -37,7 +37,7 @@ class GoogleSheetsParser(Parser):
         return worksheet
 
 
-class GoogleSheetsCitiesParser(GoogleSheetsParser):
+class CitiesParser(GoogleSheetsParser):
     country_count = 0
     region_count = 0
     city_count = 0
@@ -97,7 +97,37 @@ class GoogleSheetsCitiesParser(GoogleSheetsParser):
         ]
 
 
-class GoogleSheetsUniversitiesParser(GoogleSheetsParser):
+class ExamsParser(GoogleSheetsParser):
+    exam_count = 0
+
+    def parse(self, **kwargs):
+        worksheet = GoogleSheetsParser.get_worksheet(self, '1iw-Wv4omM8GoAhdF3yKBKXQzECZBFClRJIVsOrqcynU')
+
+        i = 2
+        while True:
+            values_list = worksheet.row_values(i)
+            i += 1
+
+            if not values_list[0]:
+                break
+
+            try:
+                exam = Exam.objects.get(
+                    name=values_list[0]
+                )
+            except ObjectDoesNotExist:
+                exam = Exam(
+                    name=values_list[0]
+                )
+                self.exam_count += 1
+                exam.save()
+
+        return [
+            'New Exams: ' + str(self.exam_count),
+        ]
+
+
+class UniversitiesParser(GoogleSheetsParser):
     university_count = 0
     city_count = 0
     unknown_region = False
@@ -177,7 +207,7 @@ class GoogleSheetsUniversitiesParser(GoogleSheetsParser):
         return result
 
 
-class FgosTrainingDirectionParser(Parser):
+class FgosTrainingDirectionParser(IParser):
     BASE_URL = 'http://www.edu.ru/'
 
     direction_count = 0

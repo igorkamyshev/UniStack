@@ -1,0 +1,8 @@
+{% extends 'app/_base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <p>Подразделение <a href="{% url 'app:university_detail' object.university.id %}">{{ object.university.abbr }}</a></p>
+    <h2>{{ object.abbr }}</h2>
+    <p>{{ object.name }}</p>
+{% endblock content %}

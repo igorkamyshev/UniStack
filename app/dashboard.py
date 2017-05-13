@@ -10,11 +10,10 @@ And to activate the app index dashboard::
     ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'unistack.dashboard.CustomAppIndexDashboard'
 """
 
-from django.utils.translation import ugettext_lazy as _
-from django.core.urlresolvers import reverse
-
 from admin_tools.dashboard import modules, Dashboard, AppIndexDashboard
 from admin_tools.utils import get_admin_site_name
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext_lazy as _
 
 
 class CustomIndexDashboard(Dashboard):
@@ -26,9 +25,9 @@ class CustomIndexDashboard(Dashboard):
             modules.ModelList(
                 title=u'География',
                 models=(
-                    'app.models.Country',
-                    'app.models.Region',
-                    'app.models.City',
+                    'app.models.geography.Country',
+                    'app.models.geography.Region',
+                    'app.models.geography.City',
                 ),
             )
         )
@@ -38,7 +37,7 @@ class CustomIndexDashboard(Dashboard):
             modules.ModelList(
                 title=u'Реклама',
                 models=(
-                    'app.models.Course',
+                    'app.models.ads.Course',
                 ),
             )
         )
@@ -48,10 +47,10 @@ class CustomIndexDashboard(Dashboard):
             modules.ModelList(
                 title=u'Специальности',
                 models=(
-                    'app.models.TrainingDirection',
-                    'app.models.TrainingDirectionGroup',
-                    'app.models.Speciality',
-                    'app.models.SpecialityGroup',
+                    'app.models.fgos.TrainingDirection',
+                    'app.models.fgos.TrainingDirectionGroup',
+                    'app.models.specialities.Speciality',
+                    'app.models.specialities.SpecialityGroup',
                 ),
             )
         )
@@ -61,8 +60,9 @@ class CustomIndexDashboard(Dashboard):
             modules.ModelList(
                 title=u'Образование',
                 models=(
-                    'app.models.Exam',
-                    'app.models.University',
+                    'app.models.utils.Exam',
+                    'app.models.universities.University',
+                    'app.models.universities.Rating',
                 ),
             )
         )
@@ -72,7 +72,7 @@ class CustomIndexDashboard(Dashboard):
             modules.ModelList(
                 title=u'О нас',
                 models=(
-                    'app.models.Assistant',
+                    'app.models.utils.Assistant',
                 ),
             )
         )

@@ -1,8 +1,7 @@
-from django.contrib import admin
 import nested_admin
+from django.contrib import admin
 
 from .models import *
-
 
 # Экзамены
 admin.site.register(Exam)
@@ -17,7 +16,7 @@ admin.site.register(Course)
 
 
 # География (города, регионы, страны)
-class CityInLine(admin.TabularInline):
+class CityInline(admin.TabularInline):
     model = City
 
 
@@ -25,14 +24,14 @@ class RegionAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['name', 'country']}),
     ]
-    inlines = [CityInLine]
+    inlines = [CityInline]
 
 admin.site.register(Country)
 admin.site.register(Region, RegionAdmin)
 
 
 # Напраления подготовки по ФГОС
-class TrainingDirectionInLine(admin.StackedInline):
+class TrainingDirectionInline(admin.StackedInline):
     model = TrainingDirection
 
 
@@ -40,13 +39,13 @@ class TrainingDirectionGroupAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['name']}),
     ]
-    inlines = [TrainingDirectionInLine]
+    inlines = [TrainingDirectionInline]
 
 admin.site.register(TrainingDirectionGroup, TrainingDirectionGroupAdmin)
 
 
 # Специальности
-class SpecialityInLine(admin.StackedInline):
+class SpecialityInline(admin.StackedInline):
     model = Speciality
 
 
@@ -54,28 +53,47 @@ class SpecialityGroupAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['name']}),
     ]
-    inlines = [SpecialityInLine]
+    inlines = [SpecialityInline]
 
 admin.site.register(SpecialityGroup, SpecialityGroupAdmin)
 
 
 # ВУЗы
-class DepartmentInLine(nested_admin.NestedTabularInline):
+class DepartmentInline(nested_admin.NestedTabularInline):
     model = Department
 
 
-class SubdivisionInLine(nested_admin.NestedStackedInline):
+class SubdivisionInline(nested_admin.NestedStackedInline):
     model = Subdivision
-    inlines = [DepartmentInLine]
+    inlines = [DepartmentInline]
+
+
+class RatingPositionInline(nested_admin.NestedStackedInline):
+    model = RatingPosition
+    extra = 1
+
+
+class NamedLinkUniversityInline(nested_admin.NestedStackedInline):
+    model = NamedLinkUniversity
 
 
 class UniversityAdmin(nested_admin.NestedModelAdmin):
     fieldsets = [
-        (None,          {'fields': ['name', 'abbr', 'parent']}),
+        (None,          {'fields': ['name', 'abbr', 'parent', 'logo']}),
         ('Контакты',    {'fields': ['city', 'site', 'address']}),
         ('Отображение', {'fields': ['hide']}),
     ]
-    inlines = [SubdivisionInLine]
+    inlines = [SubdivisionInline, RatingPositionInline, NamedLinkUniversityInline]
 
 admin.site.register(University, UniversityAdmin)
 
+
+# Рейтинги
+class RatingAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None, {'fields': ['name', 'source', 'year']}),
+    ]
+    inlines = [RatingPositionInline]
+
+
+admin.site.register(Rating, RatingAdmin)

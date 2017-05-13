@@ -2,13 +2,12 @@
 /db.sqlite3
 unistack/__pycache__/
 node_modules
-/unistack/static/app.js
+/unistack/static/
 api_v0/__pycache__/
 api_v0/migrations/__pycache__/
 app/__pycache__/
 app/management/__pycache__/
 app/management/commands/__pycache__/
 app/migrations/__pycache__/
-app/static/
 front/__pycache__/
 front/migrations/__pycache__/

@@ -1,8 +1,40 @@
 {% extends 'app/_base.html' %}
 {% load staticfiles %}
+{% load layout_tags %}
 
 {% block content %}
-    <h2>City – {{ object.name }}</h2>
-    <p>lat: {{ object.lat }}</p>
-    <p>lon: {{ object.lon }}</p>
+    <div class="row">
+        <div class="col s12 m5">
+            <div class="card">
+                <div class="card-image">
+                    <img src="{% static "app/img/sorry.png" %}" alt="city" />
+                </div>
+                <div class="card-content">
+                    <p class="card-title">{{ city.name }}</p>
+                    <p>{{ city.region.country.name }}, {{ city.region.name }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m7">
+            <div class="card">
+                <div class="card-content">
+                    <p>Информация из Википдии</p>
+                </div>
+            </div>
+        </div>
+        <div class="col s12">
+            {% show_university_list city.university_set.all %}
+        </div>
+        {% if city.nearby_universities|length > 0 %}
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <p class="card-title">Университеты в соседних городах</p>
+                    </div>
+                </div>
+                {% show_university_list city.nearby_universities %}
+            </div>
+        {% endif %}
+    </div>
+
 {% endblock content %}

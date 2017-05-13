@@ -1,15 +1,13 @@
-from django.core.management.base import BaseCommand, CommandError
-
-import importlib
-from ._parsers import *
+from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
     help = 'Загрузить данные из источника в базу данных'
     sources = {
         'fgos':   'FgosTrainingDirectionParser',
-        'cities': 'GoogleSheetsCitiesParser',
-        'universities': 'GoogleSheetsUniversitiesParser',
+        'cities': 'CitiesParser',
+        'universities': 'UniversitiesParser',
+        'exams': 'ExamsParser',
     }
 
     def add_arguments(self, parser):

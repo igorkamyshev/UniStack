@@ -1,0 +1,20 @@
+.brand-logo {
+    padding-left: 20px !important;
+}
+main, footer {
+      padding-left: 300px;
+    }
+.side-nav {
+    margin-top: 64px;
+    z-index: 0;
+}
+
+@media only screen and (max-width : 992px) {
+    main, footer {
+        padding-left: 0;
+    }
+    .side-nav {
+        margin-top: 0;
+        z-index: 1000;
+    }
+}
