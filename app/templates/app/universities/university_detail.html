@@ -29,7 +29,7 @@
             {% if object.namedlinkuniversity_set.all|length > 0 %}
                 <ul class="collapsible" data-collapsible="accordion">
                     <li>
-                        <div class="collapsible-header">Другие ресурсы</div>
+                        <div class="collapsible-header">Больше информации</div>
                         <div class="collapsible-body" style="padding: 0">
                             <div class="collection">
                                 {% for link in object.namedlinkuniversity_set.all %}
@@ -42,19 +42,23 @@
             {% endif %}
             <div class="card">
                 <div class="card-content">
-                    <p>{{ object.city.region.country }}, {{ object.city.region }}, {{ object.city }}</p>
-                    <br />
-                    <p>{{ object.address }}</p>
+                    <p>{{ object.city.region.country }}, {{ object.city.region }}, {{ object.city }}, {{ object.address }}</p>
                 </div>
             </div>
-            <ul class="collapsible" data-collapsible="accordion">
-                {% for subdivision in object.subdivision_set.all %}
+            {% if object.subdivision_set.all|length > 0 %}
+                <ul class="collapsible" data-collapsible="accordion">
                     <li>
-                        <div class="collapsible-header">{{ subdivision.name }}</div>
-                        <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                        <div class="collapsible-header">Факультеты / институты</div>
+                        <div class="collapsible-body" style="padding: 0">
+                            <div class="collection">
+                                {% for subdivision in object.subdivision_set.all %}
+                                    <a href="{% url 'app:subdivision_detail' subdivision.id %}" class="collection-item" target="_blank">Hjfkdhsjk hfksdfksj hjkhkfhds hkjfhsd f{{ subdivision.name }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </li>
-                {% endfor %}
-            </ul>
+                </ul>
+            {% endif %}
         </div>
         <div class="col s12 m8">
             {% if object.ratingposition_set.all|length > 0 %}
